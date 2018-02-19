@@ -1,0 +1,27 @@
+import java.util.concurrent.locks.ReentrantLock
+
+val Number MODE_OFF = 0
+val Number MODE_STANDBY = 1
+val Number MODE_ACTIVE = 2
+val Number MODE_FINISHED = 3
+var java.util.concurrent.locks.ReentrantLock finishLock  = new java.util.concurrent.locks.ReentrantLock()
+
+rule "Washingmachine Consumption State Machine (Extended)"
+when
+    Item Bad_Waschmaschine_Verbrauch_Aktuell changed
+then
+    if (Bad_Waschmaschine_Verbrauch_Aktuell.state < 0.2) Washingmachine_OpState.postUpdate(MODE_OFF)
+    else if (Bad_Waschmaschine_Verbrauch_Aktuell.state > 10) Washingmachine_OpState.postUpdate(MODE_ACTIVE)
+    else if (Bad_Waschmaschine_Verbrauch_Aktuell.state < 4.5) {
+        if (Washingmachine_OpState.state == MODE_OFF) Washingmachine_OpState.postUpdate(MODE_STANDBY)
+        else if (Washingmachine_OpState.state == MODE_ACTIVE) {
+            finishLock.lock()
+            try {
+                Thread::sleep(10000) // Debounce for 10 seconds
+                if (Bad_Waschmaschine_Verbrauch_Aktuell.state < 4.5) Washingmachine_OpState.postUpdate(MODE_FINISHED)
+            } finally {
+                finishLock.unlock()
+            }
+        }
+    }
+end

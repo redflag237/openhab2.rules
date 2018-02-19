@@ -1,0 +1,22 @@
+rule "Close shutters half on evening dusk"
+when
+    Item AstroSunData_Position_Elevation changed
+then
+	//catch closed blinds
+	if( Wohnzimmer_RolladeK_Level.state < 100 )
+	{
+		//if sun is in desired position
+        if( AstroSunData_Position_Elevation.state > -4 && AstroSunData_Position_Elevation.state < -1 && AstroSunData_Position_Azimuth.state > 245 ) {
+			//if blind is open
+			logInfo("INFO","Rolladen Abend: Verdunkeln auf 50%...")
+			if( Wohnzimmer_RolladeK_Level.state == 0 )
+			{
+                logInfo("INFO","Wohnzimmer Rollade klein: Verdunkeln auf 50%...")
+                Wohnzimmer_RolladeK_Level.sendCommand(50)
+				Wohnzimmer_RolladeL_Level.sendCommand(50)	
+				Wohnzimmer_RolladeR_Level.sendCommand(50)	
+				Kueche_Rollade_Level.sendCommand(50)	
+			}
+        }
+	}
+end

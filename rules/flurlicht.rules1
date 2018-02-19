@@ -3,12 +3,14 @@ when
     Item Diele_Tuer_State changed or
 	Item Flur_Tuer_State changed
 then
+	logInfo("INFO","Diele: Eine Status hat sich verändert...")
 	val HallRoomTimer
 	
 	if( Diele_Tuer_State.state == OPEN || Flur_Tuer_State.state == OPEN ) {
-		logInfo("INFO","Diele: Eine Tuer ist geöffnet, Licht einschalten...")
+		logInfo("INFO","Diele: Eine Tuer ist offen, Licht einschalten...")
 		Diele_Dimmer_Level.sendCommand(80)
 	} else if( Diele_Tuer_State.state == CLOSED && Flur_Tuer_State.state == CLOSED ) {
+		logInfo("INFO","Diele: Alle Tueren sind geschlossen, Timer Licht ausschalten...")
 		if(HallRoomTimer == null) {
 			logInfo("INFO","Diele: Alle Tueren sind geschlossen, Timer wird erzeugt...")
 			HallRoomTimer = createTimer(now.plusMinutes(2), [|

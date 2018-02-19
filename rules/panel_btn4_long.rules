@@ -1,0 +1,9 @@
+rule "Panel Button 4 triggers long"
+when
+    Channel "homematic:HG-HM-PB-6-WM55:D204EFC8-56EF-EE60-93FB-413C24B111BE:LEQ1059504:4#PRESS" triggered LONG_RELEASE
+then
+	Wohnzimmer_RolladeK_Level.sendCommand(50)
+	Wohnzimmer_RolladeL_Level.sendCommand(50)
+	Wohnzimmer_RolladeR_Level.sendCommand(50)
+	Kueche_Rollade_Level.sendCommand(50)
+end

@@ -1,0 +1,11 @@
+rule "Wohnzimmer Motion 1 Button 1 triggers short"
+when
+    Channel "homematic:HG-HM-Sen-MDIR-WM55:D204EFC8-56EF-EE60-93FB-413C24B111BE:MEQ0669026:1#PRESS" triggered SHORT
+then
+	if( WohnzimmerSideboard_Eingeschaltet.state == ON )
+	{
+		WohnzimmerSideboard_Eingeschaltet.sendCommand(OFF)		
+	} else {
+		WohnzimmerSideboard_Eingeschaltet.sendCommand(ON)
+	}
+end
