@@ -1,0 +1,9 @@
+rule "Close shutters KU half on sunset2"
+when
+    Channel "astro:sun:9ad766f3:set#event" triggered END
+then
+	if( Kueche_Rollade_Level.state == 0 )
+	{
+		Kueche_Rollade_Level.sendCommand(50)
+	}
+end

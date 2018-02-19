@@ -1,0 +1,17 @@
+rule "Close shutters WZ half on sunset2"
+when
+    Channel "astro:sun:9ad766f3:set#event" triggered END
+then
+	if( Wohnzimmer_RolladeK_Level.state == 0 )
+	{
+		Wohnzimmer_RolladeK_Level.sendCommand(50)
+	}
+	if( Wohnzimmer_RolladeL_Level.state == 0 )
+	{
+		Wohnzimmer_RolladeL_Level.sendCommand(50)
+	}
+	if( Wohnzimmer_RolladeR_Level.state == 0 )
+	{
+		Wohnzimmer_RolladeR_Level.sendCommand(50)
+	}
+end
