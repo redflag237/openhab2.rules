@@ -1,4 +1,4 @@
-#Group		Astro		<sun>		(All)
+Group		Astro		<sun>		(All)
  
 DateTime	Sonnenaufgang_Time	"Sonnenaufgang [%1$tH:%1$tM]"			<sun>		(Astro)		{ astro="planet=sun, type=rise, property=start" }
 DateTime	Sonnenuntergang_Time	"Sonnenuntergang [%1$tH:%1$tM]"			<sun>		(Astro)		{ astro="planet=sun, type=set, property=end" }
