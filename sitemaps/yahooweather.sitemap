@@ -1,0 +1,14 @@
+Frame label="Persistence Test MYSQL" {
+		Text item=Test_TemperatureMYSQL {
+			Chart item=Test_TemperatureMYSQL period=h refresh=600
+			Chart item=Test_TemperatureMYSQL period=d refresh=600
+		}    
+		Text item=Test_HumidityMYSQL {
+			Chart item=Test_HumidityMYSQL period=h refresh=600
+			Chart item=Test_HumidityMYSQL period=d refresh=600
+		}           
+		Text item=Test_PressureMYSQL {
+			Chart item=Test_PressureMYSQL period=h refresh=600
+			Chart item=Test_PressureMYSQL period=d refresh=600
+		}      
+    }

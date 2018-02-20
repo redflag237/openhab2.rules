@@ -1,11 +1,13 @@
 Strategies {
-  everyHour : "0 0 * * * ?"
-  everyDay  : "0 0 0 * * ?"
-
-  // if no strategy is specified for an Item entry below, the default list will be used
+  everyMinute	: "0 * * * * ?"
+  everyHour    : "0 0 * * * ?"
+  everyDay     : "0 0 0 * * ?"
   default = everyChange
 }
 
 Items {
+  Test_TemperatureMYSQL : strategy = everyMinute, restoreOnStartup
+  Test_HumidityMYSQL : strategy = everyMinute, restoreOnStartup
+  Test_PressureMYSQL : strategy = everyMinute, restoreOnStartup
   * : strategy = everyChange, restoreOnStartup
 }

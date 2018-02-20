@@ -1,0 +1,4 @@
+Group gTestWeather
+Number Test_TemperatureMYSQL "Aussentemperatur [%.1f °C]" <temperature>	(gTestWeather) { channel="yahooweather:weather:witten:temperature" }
+Number Test_HumidityMYSQL    "Luftfeuchtigkeit [%d %%]"	  <humidity>	(gTestWeather) { channel="yahooweather:weather:witten:humidity"}
+Number Test_PressureMYSQL    "Luftdruck [%.2f mb]"	  <pressure>	(gTestWeather) { channel="yahooweather:weather:witten:pressure"}
