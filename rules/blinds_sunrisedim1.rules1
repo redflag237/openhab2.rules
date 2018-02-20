@@ -1,6 +1,6 @@
 rule "Open shutters half on sunrise"
 when
-    Channel "aastro:sun:9ad766f3:rise#event" triggered END
+    Channel "astro:sun:9ad766f3:rise#event" triggered END
 then
 	if( Wohnzimmer_RolladeK_Level.state == 100 )
 	{
