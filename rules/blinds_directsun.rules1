@@ -11,11 +11,11 @@ then
 			if( Wohnzimmer_RolladeK_Level.state == 0 )
 			{
                 logInfo("INFO","Wohnzimmer Rollade klein: Verdunkeln auf 50%...")
-                Wohnzimmer_RolladeK_Level.sendCommand(50)			
+                Wohnzimmer_RolladeK_Level.sendCommand(49)			
 			}
         } else {
 			//if blind is half and sun moved away, then reopen
-			if( Wohnzimmer_RolladeK_Level.state == 50 && AstroSunData_Position_Elevation.state < 14 )
+			if( Wohnzimmer_RolladeK_Level.state == 49 && AstroSunData_Position_Elevation.state < 14 && AstroSunData_Position_Azimuth.state < 180 )
 			{
                 logInfo("INFO","Wohnzimmer Rollade klein: Oeffnen auf 0%...")
                 Wohnzimmer_RolladeK_Level.sendCommand(0)			

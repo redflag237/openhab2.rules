@@ -1,0 +1,21 @@
+rule "Close shutters full on night"
+when
+    Channel "astro:sun:9ad766f3:astroDusk#event" triggered END
+then
+	if( Wohnzimmer_RolladeK_Level.state == 50 )
+	{
+		Wohnzimmer_RolladeK_Level.sendCommand(100)
+	}
+	if( Wohnzimmer_RolladeL_Level.state == 50 )
+	{
+		Wohnzimmer_RolladeL_Level.sendCommand(100)
+	}
+	if( Wohnzimmer_RolladeR_Level.state == 50 )
+	{
+		Wohnzimmer_RolladeR_Level.sendCommand(100)
+	}
+	if( Kueche_Rollade_Level.state == 50 )
+	{
+		Kueche_Rollade_Level.sendCommand(100)
+	}
+end
