@@ -8,6 +8,7 @@ Strategies {
 
 Items {
   * : strategy = everyChange, everyDay, restoreOnStartup
+  
   Test_TemperatureMYSQL : strategy = everyMinute, restoreOnStartup
   Test_HumidityMYSQL : strategy = everyMinute, restoreOnStartup
   Test_PressureMYSQL : strategy = everyMinute, restoreOnStartup

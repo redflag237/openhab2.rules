@@ -10,6 +10,9 @@ rule "Washingmachine Consumption State Machine (Extended)"
 when
     Item Bad_Waschmaschine_Power_Aktuell changed
 then
+    if(Washingmachine_OpState == NULL) {
+        Washingmachine_OpState.postUpdate(MODE_OFF)
+    }
     if (Bad_Waschmaschine_Power_Aktuell.state < 0.2) { 
         logInfo("INFO","Waschmaschine: Waschmaschine aus...")
         Washingmachine_OpState.postUpdate(MODE_OFF)
@@ -23,6 +26,7 @@ then
             logInfo("INFO","Waschmaschine: Waschmaschine standby --> ein...")
             pushover("Waschmaschine: Waschprogramm gestartet.", 0)
             Washingmachine_OpState.postUpdate(MODE_ACTIVE)
+            Washingmachine_PowerStart.postUpdate(Bad_Waschmaschine_Power_Aktuell)
         }
     }
     else if (Bad_Waschmaschine_Power_Aktuell.state < 4.5) {
@@ -40,6 +44,11 @@ then
                     logInfo("INFO","Waschmaschine: Waschmaschine ist fertig...")
                     pushover("Waschmaschine: Wäsche ist fertig.", 0)
                     Washingmachine_OpState.postUpdate(MODE_FINISHED)
+                    Washingmachine_PowerEnd.postUpdate(Bad_Waschmaschine_Power_Aktuell)
+
+                    var Number cycleConsumed = Washingmachine_PowerEnd.state - Washingmachine_PowerEnd.state
+                    Washingmachine_PowerUsedCycle.postUpdate(cycleConsumed)
+                    logInfo("INFO","Waschmaschine: Waschprogramm mit Verbrauch von " + cycleConsumed + "Wh abgeschlossen.")
                 } else {
                     logInfo("INFO","Waschmaschine: Waschmaschine läuft noch...")
                 }

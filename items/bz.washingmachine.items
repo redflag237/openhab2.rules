@@ -1,1 +1,4 @@
 Number Washingmachine_OpState "Washingmachine State [%d]"
+Number Washingmachine_PowerStart "Start Power [%d]"
+Number Washingmachine_PowerEnd "End Power [%d]"
+Number Washingmachine_PowerUsedCycle "Consumed Power [%d]"
