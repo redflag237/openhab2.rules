@@ -15,8 +15,13 @@ then
         Washingmachine_OpState.postUpdate(MODE_OFF)
     }
     else if (Bad_Waschmaschine_Verbrauch_Aktuell.state > 10) {
-        logInfo("INFO","Waschmaschine: Waschmaschine ein...")
-        Washingmachine_OpState.postUpdate(MODE_ACTIVE)
+        if (Washingmachine_OpState.state == MODE_OFF) {
+            logInfo("INFO","Waschmaschine: Waschmaschine aus --> ein...")
+            Washingmachine_OpState.postUpdate(MODE_ACTIVE)
+        } else if (Washingmachine_OpState.state == MODE_STANDBY) {
+            logInfo("INFO","Waschmaschine: Waschmaschine standby --> ein...")
+            Washingmachine_OpState.postUpdate(MODE_ACTIVE)
+        }
     }
     else if (Bad_Waschmaschine_Verbrauch_Aktuell.state < 4.5) {
         if (Washingmachine_OpState.state == MODE_OFF) {
