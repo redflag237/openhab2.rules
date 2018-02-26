@@ -2,10 +2,40 @@ Strategies {
   everyMinute	: "0 * * * * ?"
   every5Minutes : "0 */5 * * * ?"
   everyHour    : "0 0 * * * ?"
+  every6Hours  : "0 */6 * * * ?"
   everyDay     : "0 0 0 * * ?"
   default = everyChange
 }
 
 Items {
   * : strategy = everyChange, everyDay, restoreOnStartup
+
+  BadActualTemperature : strategy = every5Minutes, restoreOnStartup
+  WohnzimmerActualTemperature : strategy = every5Minutes, restoreOnStartup
+  KuecheActualTemperature : strategy = every5Minutes, restoreOnStartup
+  WittenWetter_ForecastToday_MaximumTemperature : strategy = everyChange, restoreOnStartup
+
+  WittenWetter_Current_* : state = everyChange, restoreOnStartup
+
+  Bad_Waschmaschine_Power_Aktuell : strategy = restoreOnStartup
+  Bad_Waschmaschine_Power : strategy = every6Hours, restoreOnStartup
+  Bad_Waschmaschine_Verbrauch_Aktuell : strategy = restoreOnStartup
+  Bad_Waschmaschine_Frequency : strategy = restoreOnStartup
+  Bad_Waschmaschine_Voltage : strategy = restoreOnStartup
+  Bad_Waschmaschine_Energieverbrauch : strategy = everyDay, restoreOnStartup
+
+  Wohnz_Luftentfeuchter_Current : strategy = restoreOnStartup
+  Wohnz_Luftentfeuchter_Frequency : strategy = restoreOnStartup
+  Wohnz_Luftentfeuchter_Voltage : strategy = restoreOnStartup
+  Wohnz_Luftentfeuchter_Power : strategy = every6Hours, restoreOnStartup
+  Wohnz_Luftentfeuchter_EnergyCounter : strategy = everyDay, restoreOnStartup
+
+  Washingmachine_PowerStart : strategy = restoreOnStartup
+  Washingmachine_PowerEnd : strategy = restoreOnStartup
+  Washingmachine_PowerUsedCycle : strategy = everyDay, restoreOnStartup
+  Washingmachine_OpState : strategy = everyChange, restoreOnStartup 
+
+  AstroSunData_* : strategy = everyDay, restoreOnStartup
+  
+
 }
