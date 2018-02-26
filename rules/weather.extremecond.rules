@@ -5,6 +5,7 @@ then
 	//catch snow falling
 	if( WittenWetter_Current_CurrentConditions.state == 'Schneefall' || WittenWetter_Current_CurrentConditions.state == 'Leichter Schneefall' )
 	{
-		//Todo: Handle Pushover
+        logInfo("INFO","Wetter: Es wurde Schneefall gemeldet...")
+		pushover("Wetterwarnung: Aktuell Schneefall in Witten.", 1)
 	}
 end
