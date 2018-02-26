@@ -1,0 +1,10 @@
+rule "Alert if snow is falling"
+when
+    Item WittenWetter_Current_CurrentConditions changed
+then
+	//catch snow falling
+	if( WittenWetter_Current_CurrentConditions.state == Schneefall || WittenWetter_Current_CurrentConditions.state == Leichter Schneefall )
+	{
+		//Todo: Handle Pushover
+	}
+end
