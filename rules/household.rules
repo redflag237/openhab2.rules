@@ -8,13 +8,13 @@ var java.util.concurrent.locks.ReentrantLock finishLock  = new java.util.concurr
 
 rule "Washingmachine Consumption State Machine (Extended)"
 when
-    Item Bad_Waschmaschine_Verbrauch_Aktuell changed
+    Item Bad_Waschmaschine_Power_Aktuell changed
 then
-    if (Bad_Waschmaschine_Verbrauch_Aktuell.state < 0.2) { 
+    if (Bad_Waschmaschine_Power_Aktuell.state < 0.2) { 
         logInfo("INFO","Waschmaschine: Waschmaschine aus...")
         Washingmachine_OpState.postUpdate(MODE_OFF)
     }
-    else if (Bad_Waschmaschine_Verbrauch_Aktuell.state > 10) {
+    else if (Bad_Waschmaschine_Power_Aktuell.state > 10) {
         if (Washingmachine_OpState.state == MODE_OFF) {
             logInfo("INFO","Waschmaschine: Waschmaschine aus --> ein...")
             Washingmachine_OpState.postUpdate(MODE_ACTIVE)
@@ -23,7 +23,7 @@ then
             Washingmachine_OpState.postUpdate(MODE_ACTIVE)
         }
     }
-    else if (Bad_Waschmaschine_Verbrauch_Aktuell.state < 4.5) {
+    else if (Bad_Waschmaschine_Power_Aktuell.state < 4.5) {
         if (Washingmachine_OpState.state == MODE_OFF) {
             logInfo("INFO","Waschmaschine: Waschmaschine aus --> standby...")
             Washingmachine_OpState.postUpdate(MODE_STANDBY)
@@ -33,7 +33,7 @@ then
             finishLock.lock()
             try {
                 Thread::sleep(10000) // Debounce for 10 seconds
-                if (Bad_Waschmaschine_Verbrauch_Aktuell.state < 4.5) {
+                if (Bad_Waschmaschine_Power_Aktuell.state < 4.5) {
                     logInfo("INFO","Waschmaschine: Waschmaschine ist fertig...")
                     Washingmachine_OpState.postUpdate(MODE_FINISHED)
                 } else {
