@@ -10,15 +10,30 @@ rule "Washingmachine Consumption State Machine (Extended)"
 when
     Item Bad_Waschmaschine_Verbrauch_Aktuell changed
 then
-    if (Bad_Waschmaschine_Verbrauch_Aktuell.state < 0.2) Washingmachine_OpState.postUpdate(MODE_OFF)
-    else if (Bad_Waschmaschine_Verbrauch_Aktuell.state > 10) Washingmachine_OpState.postUpdate(MODE_ACTIVE)
+    if (Bad_Waschmaschine_Verbrauch_Aktuell.state < 0.2) { 
+        logInfo("INFO","Waschmaschine: Waschmaschine aus...")
+        Washingmachine_OpState.postUpdate(MODE_OFF)
+    }
+    else if (Bad_Waschmaschine_Verbrauch_Aktuell.state > 10) {
+        logInfo("INFO","Waschmaschine: Waschmaschine ein...")
+        Washingmachine_OpState.postUpdate(MODE_ACTIVE)
+    }
     else if (Bad_Waschmaschine_Verbrauch_Aktuell.state < 4.5) {
-        if (Washingmachine_OpState.state == MODE_OFF) Washingmachine_OpState.postUpdate(MODE_STANDBY)
+        if (Washingmachine_OpState.state == MODE_OFF) {
+            logInfo("INFO","Waschmaschine: Waschmaschine aus --> standby...")
+            Washingmachine_OpState.postUpdate(MODE_STANDBY)
+        }
         else if (Washingmachine_OpState.state == MODE_ACTIVE) {
+            logInfo("INFO","Waschmaschine: Erkunde Status mit Debounce...")
             finishLock.lock()
             try {
                 Thread::sleep(10000) // Debounce for 10 seconds
-                if (Bad_Waschmaschine_Verbrauch_Aktuell.state < 4.5) Washingmachine_OpState.postUpdate(MODE_FINISHED)
+                if (Bad_Waschmaschine_Verbrauch_Aktuell.state < 4.5) {
+                    logInfo("INFO","Waschmaschine: Waschmaschine ist fertig...")
+                    Washingmachine_OpState.postUpdate(MODE_FINISHED)
+                } else {
+                    logInfo("INFO","Waschmaschine: Waschmaschine läuft noch...")
+                }
             } finally {
                 finishLock.unlock()
             }
