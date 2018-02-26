@@ -7,10 +7,13 @@ then
 	
 	if( Diele_Tuer_State.state == OPEN || Flur_Tuer_State.state == OPEN ) {
 		logInfo("INFO","Diele: Eine Tuer ist geöffnet, Licht einschalten...")
-		Diele_Dimmer_Level.sendCommand(80)
+		Diele_Dimmer_Level.sendCommand(100)
 	} else if( Diele_Tuer_State.state == CLOSED && Flur_Tuer_State.state == CLOSED ) {
 		if(HallRoomTimer == null) {
 			logInfo("INFO","Diele: Alle Tueren sind geschlossen, Timer wird erzeugt...")
+			pushover("Flur Tueren geschlossen", -2)
+			Diele_Dimmer_Level.sendCommand(80)
+
 			HallRoomTimer = createTimer(now.plusMinutes(2), [|
 				if( Diele_Tuer_State.state == CLOSED && Flur_Tuer_State.state == CLOSED ) {
 					logInfo("INFO","Diele: Timer abgelaufen, Türen sind geschlossen, Licht ausschalten...")
