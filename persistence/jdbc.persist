@@ -15,7 +15,7 @@ Items {
   KuecheActualTemperature : strategy = every5Minutes, restoreOnStartup
   WittenWetter_ForecastToday_MaximumTemperature : strategy = everyChange, restoreOnStartup
 
-  WittenWetter_Current_* : state = everyChange, restoreOnStartup
+  WittenWetter_Current_* : strategy = everyChange, restoreOnStartup
 
   Bad_Waschmaschine_Power_Aktuell : strategy = restoreOnStartup
   Bad_Waschmaschine_Power : strategy = every6Hours, restoreOnStartup
