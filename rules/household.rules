@@ -17,15 +17,18 @@ then
     else if (Bad_Waschmaschine_Power_Aktuell.state > 10) {
         if (Washingmachine_OpState.state == MODE_OFF) {
             logInfo("INFO","Waschmaschine: Waschmaschine aus --> ein...")
+            pushover("Waschmaschine: Eingeschaltet (aus off).", 0)
             Washingmachine_OpState.postUpdate(MODE_ACTIVE)
         } else if (Washingmachine_OpState.state == MODE_STANDBY) {
             logInfo("INFO","Waschmaschine: Waschmaschine standby --> ein...")
+            pushover("Waschmaschine: Eingeschaltet (aus stby).", 0)
             Washingmachine_OpState.postUpdate(MODE_ACTIVE)
         }
     }
     else if (Bad_Waschmaschine_Power_Aktuell.state < 4.5) {
         if (Washingmachine_OpState.state == MODE_OFF) {
             logInfo("INFO","Waschmaschine: Waschmaschine aus --> standby...")
+            pushover("Waschmaschine: Standby.", 0)
             Washingmachine_OpState.postUpdate(MODE_STANDBY)
         }
         else if (Washingmachine_OpState.state == MODE_ACTIVE) {
@@ -35,6 +38,7 @@ then
                 Thread::sleep(10000) // Debounce for 10 seconds
                 if (Bad_Waschmaschine_Power_Aktuell.state < 4.5) {
                     logInfo("INFO","Waschmaschine: Waschmaschine ist fertig...")
+                    pushover("Waschmaschine: Wäsche ist fertig.", 0)
                     Washingmachine_OpState.postUpdate(MODE_FINISHED)
                 } else {
                     logInfo("INFO","Waschmaschine: Waschmaschine läuft noch...")
