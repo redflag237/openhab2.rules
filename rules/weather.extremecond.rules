@@ -47,7 +47,8 @@ then
          // Unwetterwarnung aktivieren
          sendCommand(WeatherAlertActive,ON)
          //Bewohner per WhatsApp informieren
-         executeCommandLine("/opt/yowsup/yowsup-cli@@demos@@-c@@/opt/yowsup/homebox.config@@-s@@49151XXXXXXX-XXXXXXX@@UNWETTERWARNUNG:\n" + alertmessage)
+         //executeCommandLine("/opt/yowsup/yowsup-cli@@demos@@-c@@/opt/yowsup/homebox.config@@-s@@49151XXXXXXX-XXXXXXX@@UNWETTERWARNUNG:\n" + alertmessage)
+		 pushover("Wetterwarnung: " + alertmessage, 1)
       } 
    //Wenn NEIN
    } else {
@@ -59,7 +60,8 @@ then
          //Aktivierung abschalten
          sendCommand(WeatherAlertActive,OFF)
          //Bewohner per WhatsApp informieren
-         executeCommandLine("/opt/yowsup/yowsup-cli@@demos@@-c@@/opt/yowsup/homebox.config@@-s@@491511XXXXXX-XXXX@@UNWETTERWARNUNG AUFGEHOBEN")         
+         //executeCommandLine("/opt/yowsup/yowsup-cli@@demos@@-c@@/opt/yowsup/homebox.config@@-s@@491511XXXXXX-XXXX@@UNWETTERWARNUNG AUFGEHOBEN")
+		 pushover("Wetterwarnung aufgehoben: " + alertmessage, -1)       
       }
    }
    
