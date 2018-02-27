@@ -4,6 +4,10 @@
    version="1.0">
    <xsl:output indent="yes" method="xml" encoding="ISO-8859-1" omit-xml-declaration="yes" cdata-section-elements="message" />
    <xsl:template match="/">
-         <xsl:value-of select="response/alerts/alert/message"/>
+        <xsl:for-each select="response/alerts/alert/message">
+            <xsl:value-of select="text()"/>
+            <xsl:text>&#xa;</xsl:text>
+            <xsl:text>&#xd;</xsl:text>
+        </xsl:for-each>
    </xsl:template>
 </xsl:stylesheet>
