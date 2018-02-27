@@ -1,0 +1,4 @@
+String WeatherAlert "Unwetterwarnung [%s]" (gWetter)
+Switch WeatherAlertActive (gWetter)
+String WeatherAlert_RAWMessage (gWetter) {http="<[cacheWeatherAlertsWunderground:300000:XSLT(wunderground_weather_alert.xsl)]" } 
+String WeatherAlert_Message

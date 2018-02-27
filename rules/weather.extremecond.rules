@@ -22,3 +22,48 @@ then
 		logInfo("INFO","Wetter: UWZ wechselt Status auf '" + uwz.state + "--" + uwz.transformedState + "'.")
 	}
 end
+
+rule "WeatherAlert_RAWMessage_Changed"
+when
+   Item WeatherAlert_RAWMessage changed
+then
+   //Leerzeichen am Anfang und Ende entfernen, sowie doppelte Leerzeichen im Text
+   alertmessage = WeatherAlert_RAWMessage.state.toString.trim().replaceAll("[\\s]+"," ")
+   //Prüfung ob eine Unwetterwarnung vorliegt (String länger als ein Zeichen und nicht uninitialisiert)
+   if (alertmessage.length() > 1 && alertmessage != "Uninitialized"){
+      //Wenn JA Umlaute und falsche Zeichen der API ersetzen bzw. entfernen
+      logInfo("HomeBox.WeatherAlert_Message_Changed", "Unwetterwarnung erkannt")
+      val umlaute = newArrayList('Ä','Ö',"Ü","ä","ö","ü","ß","é","è","ê","â","á","à","§","°","ß","","","","","","Ö","Ä","Extrem Temperatur: ")
+      val replace = newArrayList("Ã„","Ã–","Ãœ","Ã¤","Ã¶","Ã¼","ÃŸ","Ã©","Ã¨","Ãª","Ã¢","Ã¡","Ã","Â§","Â°","à&#159;","&amp;","nbsp","\n","\r","  ","Thunderstorms ","à&#150;"," à&#132;","Extreme high temperature")
+      umlaute.forEach[x,i|
+         alertmessage = alertmessage.replace(replace.get(i),x)
+      ]
+      //Item für Nachricht mit formatiertem String aktualisieren aktualisieren
+      WeatherAlert_Message.postUpdate(alertmessage)
+      WeatherAlert.postUpdate(alertmessage)
+      
+      // Prüfung ob neue Unwettermeldung vorliegt (Aktivität == OFF) 
+      if (WeatherAlertActive.state == OFF){
+         // Unwetterwarnung aktivieren
+         sendCommand(WeatherAlertActive,ON)
+         //Bewohner per WhatsApp informieren
+         executeCommandLine("/opt/yowsup/yowsup-cli@@demos@@-c@@/opt/yowsup/homebox.config@@-s@@49151XXXXXXX-XXXXXXX@@UNWETTERWARNUNG:\n" + alertmessage)
+      } 
+   //Wenn NEIN
+   } else {
+      //Zurücksetzen der Nachricht
+      WeatherAlert_Message.postUpdate("Uninitialized")
+      WeatherAlert.postUpdate("Uninitialized")
+      //Wenn Aktivität noch ON 
+      if (WeatherAlertActive.state == ON){
+         //Aktivierung abschalten
+         sendCommand(WeatherAlertActive,OFF)
+         //Bewohner per WhatsApp informieren
+         executeCommandLine("/opt/yowsup/yowsup-cli@@demos@@-c@@/opt/yowsup/homebox.config@@-s@@491511XXXXXX-XXXX@@UNWETTERWARNUNG AUFGEHOBEN")         
+      }
+   }
+   
+   // Aktualisierungsdatum setzen   
+   postUpdate(WeatherLastUpdate, new DateTimeType())
+   logInfo("HomeBox.WeatherRainForecast_Changed", "Updated WeatherLastUpdate: " + WeatherLastUpdate.state)
+end
