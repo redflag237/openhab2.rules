@@ -27,6 +27,29 @@ rule "WeatherAlert_RAWMessage_Changed"
 when
    Item WeatherAlert_RAWMessage changed
 then
-   alertmessage = WeatherAlert_RAWMessage.state.toString.trim().replaceAll("[\\s]+"," ")
-   
+   alertmessage = WeatherAlert_RAWMessage.state.toString
+   if (alertmessage.length() > 1 && alertmessage != "Uninitialized"){
+      logInfo("HomeBox.WeatherAlert_Message_Changed", "Unwetterwarnung erkannt")
+      val umlaute = newArrayList('Ä','Ö',"Ü","ä","ö","ü","ß","é","è","ê","â","á","à","§","°","ß","","","","","","Ö","Ä","Extrem Temperatur: ")
+      val replace = newArrayList("Ã„","Ã–","Ãœ","Ã¤","Ã¶","Ã¼","ÃŸ","Ã©","Ã¨","Ãª","Ã¢","Ã¡","Ã","Â§","Â°","à&#159;","&amp;","nbsp","\n","\r","  ","Thunderstorms ","à&#150;"," à&#132;","Extreme high temperature")
+      umlaute.forEach[x,i|
+         alertmessage = alertmessage.replace(replace.get(i),x)
+      ]
+
+      WeatherAlert_Message.postUpdate(alertmessage)
+      WeatherAlert.postUpdate(alertmessage)
+      
+      if (WeatherAlertActive.state == OFF){
+         sendCommand(WeatherAlertActive,ON)
+		 pushover("Wetterwarnung: " + alertmessage, 1)
+      } 
+   } else {
+      WeatherAlert_Message.postUpdate("Uninitialized")
+      WeatherAlert.postUpdate("Uninitialized")
+
+      if (WeatherAlertActive.state == ON){
+         sendCommand(WeatherAlertActive,OFF)
+		 pushover("Wetterwarnung aufgehoben: " + alertmessage, -1)       
+      }
+   }
 end
