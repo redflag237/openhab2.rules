@@ -26,7 +26,7 @@ then
             logInfo("INFO","Waschmaschine: Waschmaschine standby --> ein...")
             pushover("Waschmaschine: Waschprogramm gestartet.", 0)
             Washingmachine_OpState.postUpdate(MODE_ACTIVE)
-            Washingmachine_PowerStart.postUpdate(Bad_Waschmaschine_Power_Aktuell)
+            Washingmachine_PowerStart.postUpdate(Bad_Waschmaschine_Power_Aktuell.state)
         }
     }
     else if (Bad_Waschmaschine_Power_Aktuell.state < 4.5) {
@@ -44,11 +44,13 @@ then
                     logInfo("INFO","Waschmaschine: Waschmaschine ist fertig...")
                     pushover("Waschmaschine: Wäsche ist fertig.", 0)
                     Washingmachine_OpState.postUpdate(MODE_FINISHED)
-                    Washingmachine_PowerEnd.postUpdate(Bad_Waschmaschine_Power_Aktuell)
+                    Washingmachine_PowerEnd.postUpdate(Bad_Waschmaschine_Power_Aktuell.state)
 
                     var Number cycleConsumed = Washingmachine_PowerEnd.state - Washingmachine_PowerEnd.state
                     Washingmachine_PowerUsedCycle.postUpdate(cycleConsumed)
                     logInfo("INFO","Waschmaschine: Waschprogramm mit Verbrauch von " + cycleConsumed + "Wh abgeschlossen.")
+
+                    Bad_Waschmaschine_Zustand.postUpdate(OFF)
                 } else {
                     logInfo("INFO","Waschmaschine: Waschmaschine läuft noch...")
                 }

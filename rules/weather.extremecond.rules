@@ -54,4 +54,8 @@ then
             pushover("Wetterwarnung aufgehoben: " + alertmessage, -1)       
         }
     }
+
+    // Aktualisierungsdatum setzen   
+    postUpdate(WeatherAlert_LastUpdate, new DateTimeType())
+    logInfo("INFO", "Updated WeatherAlert_LastUpdate: " + WeatherLastUpdate.state)
 end

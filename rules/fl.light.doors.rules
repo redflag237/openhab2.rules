@@ -11,7 +11,7 @@ then
 	} else if( Diele_Tuer_State.state == CLOSED && Flur_Tuer_State.state == CLOSED ) {
 		if(HallRoomTimer == null) {
 			logInfo("INFO","Diele: Alle Tueren sind geschlossen, Timer wird erzeugt...")
-			pushover("Flur Tueren geschlossen", -2)
+			// pushover("Flur Tueren geschlossen", -2)
 			Diele_Dimmer_Level.sendCommand(80)
 
 			HallRoomTimer = createTimer(now.plusMinutes(2), [|
