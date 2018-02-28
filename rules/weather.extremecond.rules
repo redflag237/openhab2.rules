@@ -28,8 +28,8 @@ when
     Item WeatherAlert_RAWMessage changed
 then
     logInfo("INFO", "Unwetterwarnung erkannt")
-    var string alertmessage
-    alertmessage = WeatherAlert_RAWMessage.state.toString.trim().replaceAll("[\\s]+"," ")
+    var String alertmessage = ""
+    alertmessage = WeatherAlert_RAWMessage.state.toString().trim().replaceAll("[\\s]+"," ")
     if (alertmessage.length() > 1 && alertmessage != "Uninitialized"){
         logInfo("HomeBox.WeatherAlert_Message_Changed", "Unwetterwarnung erkannt")
         val umlaute = newArrayList('Ä','Ö',"Ü","ä","ö","ü","ß","é","è","ê","â","á","à","§","°","ß","","","","","","Ö","Ä","Extrem Temperatur: ")
