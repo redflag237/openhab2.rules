@@ -1,2 +1,2 @@
 String uwz      "Warnstufe: [MAP(uwz_de.map):%s]" (Weather) { http="<[http://www.unwetterzentrale.de/uwz/getwarning_de.php?plz=69429&uwz=UWZ-DE&lang=de:80:JS(uwzWarning.js)]" }
-String dwd      "Warnstufe:" (Weather) { http="<[https://www.dwd.de/DWD/warnungen/warnapp/json/warnings.json:600:JS(dwdWarning.js)]" }
+String dwd      "Warnstufe:" (Weather) { http="<[https://www.dwd.de/DWD/warnungen/warnapp/json/warnings.json:600:default]" }
