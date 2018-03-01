@@ -1,10 +1,10 @@
 (function() {
 	var lines = input.toString();
 	//var regex = /(?:{\"regionName\":\"Ennepe-Ruhr-Kreis\"[^}]+\"description\":\")([^}"]+)(?:\"[^}]+\"event\":\")([^}"]+)(?:\"[^}]+)(?:})/ig;
-    var res = lines.match(/{\"regionName\":\"Ennepe-Ruhr-Kreis\"[^}]+\"description\":\"([^}"])+\"[^}]+\"event\":\"([^}"])+\"[^}]+}/ig).toString();
+    //var res = lines.match(/{\"regionName\":\"Ennepe-Ruhr-Kreis\"[^}]+\"description\":\"([^}"])+\"[^}]+\"event\":\"([^}"])+\"[^}]+}/ig).toString();
 
     var myRegexp = /(?:{\"regionName\":\"Ennepe-Ruhr-Kreis\"[^}]+\"description\":\")([^}"]+)(?:\"[^}]+\"event\":\")([^}"]+)(?:\"[^}]+)(?:})/ig;
-    match = myRegexp.exec(res);
+    match = myRegexp.exec(lines);
     var res2 = '';
     while (match != null) {
       // matched text: match[0]
