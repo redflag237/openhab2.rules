@@ -11,7 +11,7 @@
       // match start: match.index
       // capturing group n: match[n]
       res2 += match[2] + ': ' + match[1] + '\r\n';
-      match = myRegexp.exec(res);
+      match = myRegexp.exec(lines);
     }
 
 	return res2;
