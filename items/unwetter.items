@@ -3,3 +3,7 @@ Switch WeatherAlertActive (gWetter)
 String WeatherAlert_RAWMessage (gWetter) {http="<[cacheWeatherAlertsWunderground:300000:XSLT(wunderground_weather_alert.xsl)]" } 
 String WeatherAlert_Message
 DateTime WeatherAlert_LastUpdate
+
+Switch DWD_AlertActive (gWetter)
+String DWD_Message (gWetter)
+DateTime DWD_LastUpdate

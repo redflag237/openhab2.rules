@@ -27,11 +27,10 @@ rule "WeatherAlert_RAWMessage_Changed"
 when
     Item WeatherAlert_RAWMessage changed
 then
-    logInfo("INFO", "Unwetterwarnung erkannt")
     var String alertmessage = ""
     alertmessage = WeatherAlert_RAWMessage.state.toString().trim().replaceAll("[\\s]+"," ")
     if (alertmessage.length() > 1 && alertmessage != "Uninitialized"){
-        logInfo("HomeBox.WeatherAlert_Message_Changed", "Unwetterwarnung erkannt")
+        logInfo("INFO", "WU Unwetterwarnung erkannt")
         val umlaute = newArrayList('Ä','Ö',"Ü","ä","ö","ü","ß","é","è","ê","â","á","à","§","°","ß","","","","","","Ö","Ä","Extrem Temperatur: ")
         val replace = newArrayList("Ã„","Ã–","Ãœ","Ã¤","Ã¶","Ã¼","ÃŸ","Ã©","Ã¨","Ãª","Ã¢","Ã¡","Ã","Â§","Â°","à&#159;","&amp;","nbsp","\n","\r","  ","Thunderstorms ","à&#150;"," à&#132;","Extreme high temperature")
         umlaute.forEach[x,i|
@@ -60,4 +59,31 @@ then
     // Aktualisierungsdatum setzen   
     postUpdate(WeatherAlert_LastUpdate, new DateTimeType())
     logInfo("INFO", "Updated WeatherAlert_LastUpdate: " + WeatherAlert_LastUpdate.state)
+end
+
+rule "DWD_Changed"
+when
+    Item dwd changed
+then
+    var String alertmessage = ""
+    alertmessage = DWD_Message.state.toString().trim().replaceAll("[\\s]+"," ")
+
+    if (alertmessage.length() > 1 && alertmessage != "Uninitialized"){
+        if (DWD_AlertActive.state == OFF){
+            sendCommand(DWD_AlertActive,ON)
+            pushover("Wetterwarnung DWD: " + alertmessage, 1)
+        } else {
+            pushover("Wetterwarnung DWD aktualisiert: " + alertmessage, -1)
+        }
+    } else {
+        DWD_Message.postUpdate("Uninitialized")
+
+        if (DWD_AlertActive.state == ON){
+            sendCommand(DWD_AlertActive,OFF)
+            pushover("Wetterwarnung DWD aufgehoben: " + alertmessage, -1)       
+        }
+    }
+    
+    // Aktualisierungsdatum setzen   
+    postUpdate(DWD_LastUpdate, new DateTimeType())
 end
