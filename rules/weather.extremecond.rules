@@ -67,6 +67,7 @@ when
 then
     var String alertmessage = ""
     alertmessage = DWD_Message.state.toString().trim().replaceAll("[\\s]+"," ")
+    postUpdate(DWD_AlertActive, alertmessage)
 
     if (alertmessage.length() > 1 && alertmessage != "Uninitialized"){
         if (DWD_AlertActive.state == OFF){
