@@ -57,5 +57,5 @@ then
 
     // Aktualisierungsdatum setzen   
     postUpdate(WeatherAlert_LastUpdate, new DateTimeType())
-    logInfo("INFO", "Updated WeatherAlert_LastUpdate: " + WeatherLastUpdate.state)
+    logInfo("INFO", "Updated WeatherAlert_LastUpdate: " + WeatherAlert_LastUpdate.state)
 end
