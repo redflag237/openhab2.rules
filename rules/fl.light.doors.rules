@@ -3,7 +3,7 @@ when
     Item Diele_Tuer_State changed or
 	Item Flur_Tuer_State changed
 then
-	val HallRoomTimer
+	Timer HallRoomTimer
 	
 	if( Diele_Tuer_State.state == OPEN || Flur_Tuer_State.state == OPEN ) {
 		logInfo("INFO","Diele: Eine Tuer ist geöffnet, Licht einschalten...")
@@ -11,14 +11,12 @@ then
 	} else if( Diele_Tuer_State.state == CLOSED && Flur_Tuer_State.state == CLOSED ) {
 		if(HallRoomTimer == null) {
 			logInfo("INFO","Diele: Alle Tueren sind geschlossen, Timer wird erzeugt...")
-			// pushover("Flur Tueren geschlossen", -2)
 			Diele_Dimmer_Level.sendCommand(80)
 
 			HallRoomTimer = createTimer(now.plusMinutes(2), [|
 				if( Diele_Tuer_State.state == CLOSED && Flur_Tuer_State.state == CLOSED ) {
 					logInfo("INFO","Diele: Timer abgelaufen, Türen sind geschlossen, Licht ausschalten...")
 					Diele_Dimmer_Level.sendCommand(0)
-					//sendCommand(PowderRoomFan, OFF)
 					HallRoomTimer = null
 				} else {
 					logInfo("INFO","Diele: Timer abgelaufen, Türen sind geöffnet, Licht nicht ausschalten...")
