@@ -4,7 +4,7 @@ val Number MODE_OFF = 0
 val Number MODE_STANDBY = 1
 val Number MODE_ACTIVE = 2
 val Number MODE_FINISHED = 3
-var java.util.concurrent.locks.ReentrantLock finishLock  = new java.util.concurrent.locks.ReentrantLock()
+var ReentrantLock finishLock  = new ReentrantLock()
 
 rule "Washingmachine Consumption State Machine (Extended)"
 when
