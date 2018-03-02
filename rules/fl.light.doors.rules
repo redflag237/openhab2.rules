@@ -3,7 +3,7 @@ when
     Item Diele_Tuer_State changed or
 	Item Flur_Tuer_State changed
 then
-	var HallRoomTimer
+	var HallRoomTimer == null
 	
 	if( Diele_Tuer_State.state == OPEN || Flur_Tuer_State.state == OPEN ) {
 		logInfo("INFO","Diele: Eine Tuer ist geöffnet, Licht einschalten...")
