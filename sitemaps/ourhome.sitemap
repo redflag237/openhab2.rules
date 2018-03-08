@@ -1,0 +1,19 @@
+sitemap our_home label="Our Home" {
+    Frame {
+        Group item=LivingRoom
+    }
+
+    Frame {
+        Text label="Fenster links" icon="window" {
+            Default item=Wohnzimmer_FensterLi_State label="Wohnzimmer"
+        }
+
+        Text label="Fenster klein" icon="window" {
+            Default item=Wohnzimmer_FensterKl_State label="Wohnzimmer"
+        }
+
+        Text label="Temperatur" icon="temperature" {
+            Default item=Wohnzimmer_ActualTemperature label="Wohnzimmer"
+        }
+    }
+}
