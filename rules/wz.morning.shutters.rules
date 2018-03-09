@@ -2,16 +2,19 @@ rule "Open shutters WZ half on sunrise"
 when
     Channel "astro:sun:9ad766f3:rise#event" triggered END
 then
-	if( Wohnzimmer_RolladeK_Level.state == 100 )
+	if( WZ_RolladenActive.state == ON)
 	{
-		Wohnzimmer_RolladeK_Level.sendCommand(50)
-	}
-	if( Wohnzimmer_RolladeL_Level.state == 100 )
-	{
-		Wohnzimmer_RolladeL_Level.sendCommand(50)
-	}
-	if( Wohnzimmer_RolladeR_Level.state == 100 )
-	{
-		Wohnzimmer_RolladeR_Level.sendCommand(50)
+		if( Wohnzimmer_RolladeK_Level.state == 100 )
+		{
+			Wohnzimmer_RolladeK_Level.sendCommand(50)
+		}
+		if( Wohnzimmer_RolladeL_Level.state == 100 )
+		{
+			Wohnzimmer_RolladeL_Level.sendCommand(50)
+		}
+		if( Wohnzimmer_RolladeR_Level.state == 100 )
+		{
+			Wohnzimmer_RolladeR_Level.sendCommand(50)
+		}
 	}
 end

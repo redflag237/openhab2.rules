@@ -2,8 +2,11 @@ rule "Open shutters KU half on sunrise"
 when
     Channel "astro:sun:9ad766f3:rise#event" triggered END
 then
-	if( Kueche_Rollade_Level.state == 100 )
+	if( KU_RolladenActive.state == ON )
 	{
-		Kueche_Rollade_Level.sendCommand(50)
+		if( Kueche_Rollade_Level.state == 100 )
+		{
+			Kueche_Rollade_Level.sendCommand(50)
+		}
 	}
 end
