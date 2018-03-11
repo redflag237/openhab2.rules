@@ -42,9 +42,9 @@ then
         
         if (WeatherAlertActive.state == OFF){
             sendCommand(WeatherAlertActive,ON)
-            pushover("Wetterwarnung: " + alertmessage, 1)
+            pushover("Wetterwarnung (DWD): " + WeatherAlert_RAWMessage.state, 1)
         } else {
-            pushover("Wetterwarnung aktualisiert: " + alertmessage, -1)
+            pushover("Wetterwarnung aktualisiert (DWD): " + WeatherAlert_RAWMessage.state, -1)
         }
     } else {
         WeatherAlert_Message.postUpdate("Uninitialized")
@@ -52,7 +52,7 @@ then
 
         if (WeatherAlertActive.state == ON){
             sendCommand(WeatherAlertActive,OFF)
-            pushover("Wetterwarnung aufgehoben: " + alertmessage, -1)       
+            pushover("Wetterwarnung aufgehoben (DWD)", -1)       
         }
     }
 
