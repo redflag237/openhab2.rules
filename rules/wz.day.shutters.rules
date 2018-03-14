@@ -3,19 +3,24 @@ when
     Item AstroSunData_Position_Elevation changed
 then
 	//catch closed blinds
-	if( Wohnzimmer_RolladeK_Level.state < 100 )
+	if( Wohnzimmer_RolladeK_Level.state < 100 && Wohnzimmer_RolladeK_Level.state != 50 )
 	{
 		//if sun is in desired position
         if( AstroSunData_Position_Elevation.state > 6 && AstroSunData_Position_Elevation.state < 12 && AstroSunData_Position_Azimuth.state < 140 ) {
 			//if blind is open
 			if( Wohnzimmer_RolladeK_Level.state == 0 )
 			{
-                logInfo("INFO","Wohnzimmer Rollade klein: Verdunkeln auf 50%...")
-                Wohnzimmer_RolladeK_Level.sendCommand(50)			
+				if(WittenWetter_Current_CurrentConditions.state == "Sonne" || WittenWetter_Current_CurrentConditions.state == "Teils Sonnig")
+				{
+					logInfo("INFO","Wohnzimmer Rollade klein: Verdunkeln auf 49%...")
+					Wohnzimmer_RolladeK_Level.sendCommand(49)					
+				} else {
+					logInfo("INFO","Wohnzimmer Rollade klein: Ignoriere Regel wegen schlechtem Wetter.")
+				}
 			}
         } else {
 			//if blind is half and sun moved away, then reopen
-			if( Wohnzimmer_RolladeK_Level.state == 50 && AstroSunData_Position_Elevation.state < 14 && AstroSunData_Position_Azimuth.state < 140 )
+			if( Wohnzimmer_RolladeK_Level.state == 49 && AstroSunData_Position_Elevation.state < 14 && AstroSunData_Position_Azimuth.state < 140 )
 			{
                 logInfo("INFO","Wohnzimmer Rollade klein: Oeffnen auf 0%...")
                 Wohnzimmer_RolladeK_Level.sendCommand(0)			
