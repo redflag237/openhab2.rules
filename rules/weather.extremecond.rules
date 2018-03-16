@@ -17,7 +17,7 @@ then
 	if( uwz.state != '6-2' )
 	{
         logInfo("INFO","Wetter: Es wurde eine UWZ Meldung veroeffentlicht...")
-		pushover("Wetterwarnung: Unwetterzentrale meldet '" + uwz.transformedState + "' fuer Witten.", 1)
+		pushover("Wetterwarnung (UWZ): Unwetterzentrale meldet '" + uwz.transformedState + "' fuer Witten.", 1)
 	} else {
 		logInfo("INFO","Wetter: UWZ wechselt Status auf '" + uwz.state + "--" + uwz.transformedState + "'.")
 	}
@@ -42,9 +42,9 @@ then
         
         if (WeatherAlertActive.state == OFF){
             sendCommand(WeatherAlertActive,ON)
-            pushover("Wetterwarnung (DWD): " + WeatherAlert_RAWMessage.state, 1)
+            pushover("Wetterwarnung (WU): " + WeatherAlert_RAWMessage.state, 1)
         } else {
-            pushover("Wetterwarnung aktualisiert (DWD): " + WeatherAlert_RAWMessage.state, -1)
+            pushover("Wetterwarnung aktualisiert (WU): " + WeatherAlert_RAWMessage.state, -1)
         }
     } else {
         WeatherAlert_Message.postUpdate("Uninitialized")
@@ -52,7 +52,7 @@ then
 
         if (WeatherAlertActive.state == ON){
             sendCommand(WeatherAlertActive,OFF)
-            pushover("Wetterwarnung aufgehoben (DWD)", -1)       
+            pushover("Wetterwarnung aufgehoben (WU)", -1)       
         }
     }
 
@@ -66,8 +66,8 @@ when
     Item dwd changed
 then
     var String alertmessage = ""
-    alertmessage = DWD_Message.state.toString().trim().replaceAll("[\\s]+"," ")
-    postUpdate(DWD_AlertActive, alertmessage)
+    alertmessage = dwd.state.toString().trim().replaceAll("[\\s]+"," ")
+    postUpdate(DWD_Message, alertmessage)
 
     if (alertmessage.length() > 1 && alertmessage != "Uninitialized"){
         if (DWD_AlertActive.state == OFF){
