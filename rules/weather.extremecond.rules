@@ -14,7 +14,7 @@ rule "Push UWZ Alerts"
 when
     Item uwz changed
 then
-    var uwzwarning = transform("MAP", "uwz_de.map", uwz)
+    var uwzwarning = transform("MAP", "uwz_de.map", uwz.state.toString())
 	if( uwz.state != '6-2' )
 	{
         logInfo("INFO","Wetter: Es wurde eine UWZ Meldung veroeffentlicht...")
