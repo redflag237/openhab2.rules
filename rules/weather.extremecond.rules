@@ -17,7 +17,7 @@ then
 	if( uwz.state != '6-2' )
 	{
         logInfo("INFO","Wetter: Es wurde eine UWZ Meldung veroeffentlicht...")
-		pushover("Wetterwarnung (UWZ): Unwetterzentrale meldet '" + uwz.transformedState.toString() + "' fuer Witten.", 1)
+		pushover("Wetterwarnung (UWZ): Unwetterzentrale meldet '" + uwz.transformedState().toString() + "' fuer Witten.", 1)
 	} else {
 		logInfo("INFO","Wetter: UWZ wechselt Status auf '" + uwz.state.toString() + "--" + uwz.state + "'.")
 	}
