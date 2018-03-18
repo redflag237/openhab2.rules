@@ -1,4 +1,4 @@
-sitemap our_home label="Our Home" {
+sitemap ourhome label="Our Home" {
     Frame {
         Group item=LivingRoom
     }
