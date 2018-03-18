@@ -46,7 +46,10 @@ then
                     Washingmachine_OpState.postUpdate(MODE_FINISHED)
                     Washingmachine_PowerEnd.postUpdate(Bad_Waschmaschine_Power_Aktuell.state)
 
-                    var Number cycleConsumed = Washingmachine_PowerEnd.state - Washingmachine_PowerEnd.state
+                    var Number energyStart = Washingmachine_PowerEnd.state as Number
+                    var Number energyEnd = Washingmachine_PowerEnd.state as Number
+                    var Number cycleConsumed = energyEnd - energyStart
+                    
                     Washingmachine_PowerUsedCycle.postUpdate(cycleConsumed)
                     logInfo("INFO","Waschmaschine: Waschprogramm mit Verbrauch von " + cycleConsumed + "Wh abgeschlossen.")
 
