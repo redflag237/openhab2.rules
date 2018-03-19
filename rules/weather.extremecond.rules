@@ -15,7 +15,7 @@ when
     Item uwz changed
 then
     var uwzwarning = transform("MAP", "uwz_de.map", uwz.state.toString())
-	if( uwz.state != '6-2' )
+	if( uwz.state != '6-2' && uwz.state != '0-2' )
 	{
         logInfo("INFO","Wetter: Es wurde eine UWZ Meldung veroeffentlicht...")
 		pushover("Wetterwarnung (UWZ): Unwetterzentrale meldet '" + uwzwarning + "' fuer Witten.", 1)
