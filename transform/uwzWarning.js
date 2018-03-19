@@ -11,7 +11,7 @@
 	var regex = /<div style="float:left;display:block;width:117px;height:110px;padding-top:6px;"><img src="..\/images\/icons\/(.*?)-(.*?).gif" width="117" height="104"><\/div>/ig;
 
 	var warnstufen = {gelb: 1, orange: 2, rot: 3, violett: 4};
-	var	warntyp = {gewitter: 1, glatteisregen: 2, regen: 3, schnee: 4, sturm: 5, temperatur: 6};
+	var	warntyp = {gewitter: 1, glatteisregen: 2, regen: 3, schnee: 4, sturm: 5, temperatur: 6, strassenglaette: 7};
 	
 	var type_max = 0;
 	var level_max = 0;
