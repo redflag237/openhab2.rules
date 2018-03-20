@@ -14,14 +14,35 @@ rule "Push UWZ Alerts"
 when
     Item uwz changed
 then
-    var uwzwarning = transform("MAP", "uwz_de.map", uwz.state.toString())
-	if( uwz.state != '6-2' && uwz.state != '0-2' )
-	{
-        logInfo("INFO","Wetter: Es wurde eine UWZ Meldung veroeffentlicht...")
-		pushover("Wetterwarnung (UWZ): Unwetterzentrale meldet '" + uwzwarning + "' fuer Witten.", 1)
-	} else {
-		logInfo("INFO","Wetter: UWZ wechselt Status auf '" + uwz.state + "--" + uwzwarning + "'.")
-	}
+    var String alertmessage = ""
+    alertmessage = transform("MAP", "uwz_de.map", uwz.state.toString())
+    if (alertmessage.length() > 1 && alertmessage != "Uninitialized" && alertmessage != "Keine"){
+        logInfo("INFO", "UWZ Unwetterwarnung erkannt")
+        UWZ_Message.postUpdate(alertmessage)
+        
+        if (UWZ_AlertActive.state == OFF){
+            sendCommand(UWZ_AlertActive,ON)
+            pushover("Wetterwarnung (UWZ): " + alertmessage, 1)
+        } else {
+            pushover("Wetterwarnung aktualisiert (UWZ): " + alertmessage, -1)
+        }
+    } else {
+        UWZ_Message.postUpdate("Uninitialized")
+
+        if (UWZ_AlertActive.state == ON){
+            sendCommand(UWZ_AlertActive,OFF)
+            pushover("Wetterwarnung aufgehoben (UWZ)", -1)       
+        }
+    }
+
+    //var uwzwarning = transform("MAP", "uwz_de.map", uwz.state.toString())
+	//if( uwz.state != '6-2' && uwz.state != '0-2' )
+	//{
+    //    logInfo("INFO","Wetter: Es wurde eine UWZ Meldung veroeffentlicht...")
+	//	pushover("Wetterwarnung (UWZ): Unwetterzentrale meldet '" + uwzwarning + "' fuer Witten.", 1)
+	//} else {
+	//	logInfo("INFO","Wetter: UWZ wechselt Status auf '" + uwz.state + "--" + uwzwarning + "'.")
+	//}
 end
 
 rule "WeatherAlert_RAWMessage_Changed"

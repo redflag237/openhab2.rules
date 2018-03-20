@@ -7,3 +7,7 @@ DateTime WeatherAlert_LastUpdate
 Switch DWD_AlertActive (gWetter)
 String DWD_Message (gWetter)
 DateTime DWD_LastUpdate
+
+Switch UWZ_AlertActive (gWetter)
+String UWZ_Message (gWetter)
+DateTime UWZ_LastUpdate
