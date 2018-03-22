@@ -103,7 +103,7 @@ then
 
         if (DWD_AlertActive.state == ON){
             sendCommand(DWD_AlertActive,OFF)
-            pushover("Wetterwarnung DWD aufgehoben: " + alertmessage, -1)       
+            pushover("Wetterwarnung DWD aufgehoben.", -1)       
         }
     }
     
