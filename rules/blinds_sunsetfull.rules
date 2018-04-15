@@ -19,3 +19,29 @@ then
 		Kueche_Rollade_Level.sendCommand(100)
 	}
 end
+
+rule "Helper Close shutters full on night"
+when
+    Channel "astro:sun:9ad766f3:astroDusk#event" triggered START
+then
+	if( Wohnzimmer_RolladeK_Level.state < 100 )
+	{
+		pushover("Rolladen: Wohnzimmer klein nicht geschlossen!", 2)
+		Wohnzimmer_RolladeK_Level.sendCommand(100)
+	}
+	if( Wohnzimmer_RolladeL_Level.state < 100 )
+	{
+		pushover("Rolladen: Wohnzimmer links nicht geschlossen!", 2)
+		Wohnzimmer_RolladeL_Level.sendCommand(100)
+	}
+	if( Wohnzimmer_RolladeR_Level.state < 100 )
+	{
+		pushover("Rolladen: Wohnzimmer rechts nicht geschlossen!", 2)
+		Wohnzimmer_RolladeR_Level.sendCommand(100)
+	}
+	if( Kueche_Rollade_Level.state < 100 )
+	{
+		pushover("Rolladen: Küche nicht geschlossen!", 2)
+		Kueche_Rollade_Level.sendCommand(100)
+	}
+end
