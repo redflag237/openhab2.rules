@@ -68,7 +68,7 @@ rule "Letterbox Notification"
 when
     Item Flur_Briefkasten_Zustand changed
 then
-    if( Flur_Briefkasten_Zustand == OPEN ) {
+    if( Flur_Briefkasten_Zustand.state == OPEN ) {
 		logInfo("INFO","Flur: Post im Briefkasten...")
 		pushover("Briefkasten: Sie haben Post!", 0)
         Thread::sleep(10000)
