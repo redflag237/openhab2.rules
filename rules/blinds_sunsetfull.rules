@@ -1,6 +1,6 @@
 rule "Close shutters full on night"
 when
-    Channel "astro:sun:9ad766f3:astroDusk#event" triggered END
+    Channel "astro:sun:9ad766f3:nauticDusk#event" triggered START
 then
 	if( Wohnzimmer_RolladeK_Level.state == 50 )
 	{
