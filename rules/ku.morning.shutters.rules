@@ -6,7 +6,8 @@ then
 	{
 		if( Kueche_Rollade_Level.state == 100 )
 		{
-			Kueche_Rollade_Level.sendCommand(50)
+			//Kueche_Rollade_Level.sendCommand(50)
+			Thread::sleep(1000)
 		}
 	}
 end

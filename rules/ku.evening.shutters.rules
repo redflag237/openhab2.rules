@@ -4,6 +4,7 @@ when
 then
 	if( Kueche_Rollade_Level.state == 0 )
 	{
-		Kueche_Rollade_Level.sendCommand(50)
+		Thread::sleep(1000)
+		//Kueche_Rollade_Level.sendCommand(50)
 	}
 end

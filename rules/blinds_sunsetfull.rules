@@ -28,20 +28,24 @@ then
 	{
 		pushover("Rolladen: Wohnzimmer klein nicht geschlossen!", 2)
 		Wohnzimmer_RolladeK_Level.sendCommand(100)
+		Thread::sleep(1000)
 	}
 	if( Wohnzimmer_RolladeL_Level.state < 100 )
 	{
 		pushover("Rolladen: Wohnzimmer links nicht geschlossen!", 2)
 		Wohnzimmer_RolladeL_Level.sendCommand(100)
+		Thread::sleep(1000)
 	}
 	if( Wohnzimmer_RolladeR_Level.state < 100 )
 	{
 		pushover("Rolladen: Wohnzimmer rechts nicht geschlossen!", 2)
 		Wohnzimmer_RolladeR_Level.sendCommand(100)
+		Thread::sleep(1000)
 	}
 	if( Kueche_Rollade_Level.state < 100 )
 	{
 		pushover("Rolladen: Küche nicht geschlossen!", 2)
 		Kueche_Rollade_Level.sendCommand(100)
+		Thread::sleep(1000)
 	}
 end
