@@ -10,6 +10,10 @@ rule "Washingmachine Consumption State Machine (Extended)"
 when
     Item Bad_Waschmaschine_Power_Aktuell changed
 then
+    var Number energyStart = 0
+    var Number energyEnd = 0
+    var Number cycleConsumed = 0
+
     if(Washingmachine_OpState == NULL) {
         Washingmachine_OpState.postUpdate(MODE_OFF)
     }
@@ -46,9 +50,9 @@ then
                     Washingmachine_OpState.postUpdate(MODE_FINISHED)
                     Washingmachine_PowerEnd.postUpdate(Bad_Waschmaschine_Power_Aktuell.state)
 
-                    var Number energyStart = Washingmachine_PowerEnd.state as Number
-                    var Number energyEnd = Washingmachine_PowerEnd.state as Number
-                    var Number cycleConsumed = energyEnd - energyStart
+                    energyStart = Washingmachine_PowerStart.state
+                    energyEnd = Washingmachine_PowerEnd.state
+                    cycleConsumed = energyEnd - energyStart
                     
                     Washingmachine_PowerUsedCycle.postUpdate(cycleConsumed)
                     logInfo("INFO","Waschmaschine: Waschprogramm mit Verbrauch von " + cycleConsumed + "Wh abgeschlossen.")
