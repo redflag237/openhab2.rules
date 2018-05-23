@@ -5,18 +5,22 @@ then
 	if( Wohnzimmer_RolladeK_Level.state == 50 )
 	{
 		Wohnzimmer_RolladeK_Level.sendCommand(100)
+		Thread::sleep(1000)
 	}
 	if( Wohnzimmer_RolladeL_Level.state == 50 )
 	{
 		Wohnzimmer_RolladeL_Level.sendCommand(100)
+		Thread::sleep(1000)
 	}
 	if( Wohnzimmer_RolladeR_Level.state == 50 )
 	{
 		Wohnzimmer_RolladeR_Level.sendCommand(100)
+		Thread::sleep(1000)
 	}
 	if( Kueche_Rollade_Level.state == 50 )
 	{
 		Kueche_Rollade_Level.sendCommand(100)
+		Thread::sleep(1000)
 	}
 end
 
