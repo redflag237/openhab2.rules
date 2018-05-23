@@ -10,10 +10,6 @@ rule "Washingmachine Consumption State Machine (Extended)"
 when
     Item Bad_Waschmaschine_Power_Aktuell changed
 then
-    var float energyStart = 0
-    var float energyEnd = 0
-    var float cycleConsumed = 0
-
     if(Washingmachine_OpState == NULL) {
         Washingmachine_OpState.postUpdate(MODE_OFF)
     }
@@ -57,9 +53,9 @@ then
 
                         Thread::sleep(2000) // Debounce for 10 seconds
 
-                        energyStart = (Washingmachine_PowerStart.state as DecimalType).floatValue
-                        energyEnd = (Washingmachine_PowerEnd.state as DecimalType).floatValue
-                        cycleConsumed = energyEnd - energyStart
+                        var float energyStart = (Washingmachine_PowerStart.state as DecimalType).floatValue
+                        var floatenergyEnd = (Washingmachine_PowerEnd.state as DecimalType).floatValue
+                        var float cycleConsumed = energyEnd - energyStart
                         
                         Washingmachine_PowerUsedCycle.postUpdate(cycleConsumed)
                         logInfo("INFO","Waschmaschine: Waschprogramm mit Verbrauch von " + cycleConsumed + "Wh abgeschlossen.")
