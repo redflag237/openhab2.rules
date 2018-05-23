@@ -27,12 +27,12 @@ then
             //pushover("Waschmaschine: Eingeschaltet (aus off).", 0)
             pushover("Waschmaschine: Waschprogramm gestartet.", 0)
             Washingmachine_OpState.postUpdate(MODE_ACTIVE)
-            Washingmachine_PowerStart.postUpdate(Bad_Waschmaschine_Power_Aktuell.state)
+            Washingmachine_PowerStart.postUpdate(Bad_Waschmaschine_Energieverbrauch.state)
         } else if (Washingmachine_OpState.state == MODE_STANDBY) {
             logInfo("INFO","Waschmaschine: Waschmaschine standby --> ein...")
             pushover("Waschmaschine: Waschprogramm gestartet.", 0)
             Washingmachine_OpState.postUpdate(MODE_ACTIVE)
-            Washingmachine_PowerStart.postUpdate(Bad_Waschmaschine_Power_Aktuell.state)
+            Washingmachine_PowerStart.postUpdate(Bad_Waschmaschine_Energieverbrauch.state)
         }
     }
     else if (Bad_Waschmaschine_Power_Aktuell.state < 4.5) {
@@ -53,7 +53,7 @@ then
 
                         pushover("Waschmaschine: Wäsche ist fertig.", 0)
                         Washingmachine_OpState.postUpdate(MODE_FINISHED)
-                        Washingmachine_PowerEnd.postUpdate(Bad_Waschmaschine_Power_Aktuell.state)
+                        Washingmachine_PowerEnd.postUpdate(Bad_Waschmaschine_Energieverbrauch.state)
 
                         energyStart = (Washingmachine_PowerStart.state as DecimalType).floatValue
                         energyEnd = (Washingmachine_PowerEnd.state as DecimalType).floatValue
