@@ -55,6 +55,8 @@ then
                         Washingmachine_OpState.postUpdate(MODE_FINISHED)
                         Washingmachine_PowerEnd.postUpdate(Bad_Waschmaschine_Energieverbrauch.state)
 
+                        Thread::sleep(2000) // Debounce for 10 seconds
+
                         energyStart = (Washingmachine_PowerStart.state as DecimalType).floatValue
                         energyEnd = (Washingmachine_PowerEnd.state as DecimalType).floatValue
                         cycleConsumed = energyEnd - energyStart
