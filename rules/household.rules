@@ -45,19 +45,26 @@ then
             try {
                 Thread::sleep(10000) // Debounce for 10 seconds
                 if (Bad_Waschmaschine_Power_Aktuell.state < 4.5) {
-                    logInfo("INFO","Waschmaschine: Waschmaschine ist fertig...")
-                    pushover("Waschmaschine: Wäsche ist fertig.", 0)
-                    Washingmachine_OpState.postUpdate(MODE_FINISHED)
-                    Washingmachine_PowerEnd.postUpdate(Bad_Waschmaschine_Power_Aktuell.state)
+                    Thread::sleep(10000) // Debounce for 10 seconds
+                    if (Bad_Waschmaschine_Power_Aktuell.state < 4.5) {
+                        logInfo("INFO","Waschmaschine: Waschmaschine ist fertig...")
 
-                    energyStart = Washingmachine_PowerStart.state
-                    energyEnd = Washingmachine_PowerEnd.state
-                    cycleConsumed = energyEnd - energyStart
-                    
-                    Washingmachine_PowerUsedCycle.postUpdate(cycleConsumed)
-                    logInfo("INFO","Waschmaschine: Waschprogramm mit Verbrauch von " + cycleConsumed + "Wh abgeschlossen.")
+                        pushover("Waschmaschine: Wäsche ist fertig.", 0)
+                        Washingmachine_OpState.postUpdate(MODE_FINISHED)
+                        Washingmachine_PowerEnd.postUpdate(Bad_Waschmaschine_Power_Aktuell.state)
 
-                    Bad_Waschmaschine_Zustand.postUpdate(OFF)
+                        energyStart = Washingmachine_PowerStart.state
+                        energyEnd = Washingmachine_PowerEnd.state
+                        cycleConsumed = energyEnd - energyStart
+                        
+                        Washingmachine_PowerUsedCycle.postUpdate(cycleConsumed)
+                        logInfo("INFO","Waschmaschine: Waschprogramm mit Verbrauch von " + cycleConsumed + "Wh abgeschlossen.")
+                        pushover("Waschmaschine: Waschprogramm mit Verbrauch von " + cycleConsumed + "Wh abgeschlossen.", -1)
+
+                        Bad_Waschmaschine_Zustand.postUpdate(OFF)
+                    } else {
+                        logInfo("INFO","Waschmaschine: Waschmaschine läuft noch...")
+                    }
                 } else {
                     logInfo("INFO","Waschmaschine: Waschmaschine läuft noch...")
                 }

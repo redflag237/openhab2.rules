@@ -1,2 +1,0 @@
-String uwz      "Warnstufe UWZ: [MAP(uwz_de.map):%s]" (Weather) { http="<[http://www.unwetterzentrale.de/uwz/getwarning_de.php?plz=58453&uwz=UWZ-DE&lang=de:80:JS(uwzWarning.js)]" }
-String dwd      "Wetterwarnung DWD" (Weather) { http="<[https://getdwdwarnings.azurewebsites.net/api/HttpTriggerCSharp1?code=tZXUwTT2pvpZcebuNaby57cQ9vJC06L8Mhs6CsvbRSPnrT8Ox5jTHQ==:600:JS(dwdWarning.js)]" }
