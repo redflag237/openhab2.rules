@@ -41,17 +41,19 @@ then
             logInfo("INFO","Waschmaschine: Erkunde Status mit Debounce...")
             finishLock.lock()
             try {
-                Thread::sleep(10000) // Debounce for 10 seconds
+                Thread::sleep(15000) // Debounce for 10 seconds
                 if (Bad_Waschmaschine_Power_Aktuell.state < 4.5) {
-                    Thread::sleep(10000) // Debounce for 10 seconds
+                    logInfo("INFO","Waschmaschine: Debounce 1 OK...")
+                    Thread::sleep(1000) // Debounce for 10 seconds
                     if (Bad_Waschmaschine_Power_Aktuell.state < 4.5) {
+                        logInfo("INFO","Waschmaschine: Debounce 2 OK...")
                         logInfo("INFO","Waschmaschine: Waschmaschine ist fertig...")
 
                         pushover("Waschmaschine: Wäsche ist fertig.", 0)
                         Washingmachine_OpState.postUpdate(MODE_FINISHED)
                         Washingmachine_PowerEnd.postUpdate(Bad_Waschmaschine_Energieverbrauch.state)
 
-                        Thread::sleep(2000) // Debounce for 10 seconds
+                        Thread::sleep(1000) // Debounce for 10 seconds
 
                         var float energyStart = (Washingmachine_PowerStart.state as DecimalType).floatValue
                         var floatenergyEnd = (Washingmachine_PowerEnd.state as DecimalType).floatValue
