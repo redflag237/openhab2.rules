@@ -56,7 +56,7 @@ then
                         Thread::sleep(1000) // Debounce for 10 seconds
 
                         var float energyStart = (Washingmachine_PowerStart.state as DecimalType).floatValue
-                        var floatenergyEnd = (Washingmachine_PowerEnd.state as DecimalType).floatValue
+                        var float energyEnd = (Washingmachine_PowerEnd.state as DecimalType).floatValue
                         var float cycleConsumed = energyEnd - energyStart
                         
                         Washingmachine_PowerUsedCycle.postUpdate(cycleConsumed)
