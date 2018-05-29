@@ -53,7 +53,7 @@ then
                         Washingmachine_OpState.postUpdate(MODE_FINISHED)
                         Washingmachine_PowerEnd.postUpdate(Bad_Waschmaschine_Energieverbrauch.state)
 
-                        Thread::sleep(1000) // Debounce for 10 seconds
+                        Thread::sleep(1000) // Debounce for 1 second
 
                         var float energyStart = (Washingmachine_PowerStart.state as DecimalType).floatValue
                         var float energyEnd = (Washingmachine_PowerEnd.state as DecimalType).floatValue
@@ -64,6 +64,7 @@ then
                         logInfo("test", "test: {} ({} : {})", cycleConsumed, energyStart, energyEnd)
                         pushover("Waschmaschine: Waschprogramm mit Verbrauch von " + cycleConsumed + "Wh abgeschlossen.", -1)
 
+                        Washingmachine_OpState.postUpdate(MODE_STANDBY)
                         Bad_Waschmaschine_Zustand.postUpdate(OFF)
                         logInfo("INFO","Waschmaschine: ausgeschaltet.")
                     } else {
